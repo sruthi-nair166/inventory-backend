@@ -44,3 +44,13 @@ exports.updateItemById = (req, res) => {
 
   res.json(item);
 };
+
+exports.deleteItemById = (req, res) => {
+  const index = items.findIndex((i) => i.id === parseInt(req.params.id));
+  if (index === -1) {
+    return res.status(404).send("Item not found");
+  }
+
+  items.splice(index, 1);
+  res.status(204).send();
+};
