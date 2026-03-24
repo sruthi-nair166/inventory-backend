@@ -9,13 +9,28 @@ exports.createInventory = (req, res) => {
 };
 
 exports.getAllItems = (req, res) => {
-  const { search } = req.query;
+  const { search, category, quantity } = req.query;
   if (search) {
     const filteredItems = items.filter((item) =>
       item.name.toLowerCase().includes(search.toLowerCase()),
     );
     return res.json(filteredItems);
   }
+
+  if (category) {
+    const filteredItems = items.filter(
+      (item) => item.category.toLowerCase() === category.toLowerCase(),
+    );
+    return res.json(filteredItems);
+  }
+
+  if (quantity !== undefined) {
+    const filteredItems = items.filter(
+      (item) => item.quantity === Number(quantity),
+    );
+    return res.json(filteredItems);
+  }
+
   res.json(items);
 };
 
