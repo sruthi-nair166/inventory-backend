@@ -25,3 +25,22 @@ exports.getItemById = (req, res) => {
   if (!item) return res.status(404).send("Item not found");
   res.json(item);
 };
+
+exports.updateItemById = (req, res) => {
+  const item = items.find((i) => i.id === parseInt(req.params.id));
+
+  if (!item) return res.status(404).send("Item not found");
+
+  const { name, category, quantity } = req.body;
+  if (name) {
+    item.name = name;
+  }
+  if (category) {
+    item.category = category;
+  }
+  if (quantity) {
+    item.quantity = quantity;
+  }
+
+  res.json(item);
+};
